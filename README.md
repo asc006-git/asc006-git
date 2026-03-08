@@ -6,11 +6,21 @@
 - Experience building **AI verification platforms and behavioural security models**
 - Active in **hackathons and research competitions**
 - Currently exploring **system design and ML-based security solutions**
+- Open To collaborations.
+  
+## Featured Projects
 
-### Open To
-- Collaborating on **AI / backend / security projects**
-- Research and hackathon opportunities
-- Open-source contributions
+<p align="center">
+
+<a href="https://github.com/asc006-git/VoiceShield-AI">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=asc006-git&repo=VoiceShield-AI&theme=tokyonight"/>
+</a>
+
+<a href="https://github.com/asc006-git/QUIZ">
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=asc006-git&repo=QUIZ&theme=tokyonight"/>
+</a>
+
+</p>
 
 ## Tech Stack
 
