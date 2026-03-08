@@ -6,7 +6,7 @@
 - Experience building **AI verification platforms and behavioural security models**
 - Active in **hackathons and research competitions**
 - Currently exploring **system design and ML-based security solutions**
-- Open To collaborations.
+- Open To collaborations and reach me at: **adhyatma006@gmail.com**
 
 ## Tech Stack
 
@@ -45,31 +45,9 @@ timeline
 
 ## Contribution Activity
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=asc006-git&theme=tokyo-night)](https://github.com/)
-
-## Connect With Me
-
-Let's connect and collaborate on AI, backend systems, and security projects.
-
 <p align="center">
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=asc006-git&theme=tokyo-night&hide_border=true&area=true&height=250">
+</p>
 
-<a href="https://linkedin.com/in/adhyatma006">
-<img src="https://skillicons.dev/icons?i=linkedin" height="50"/>
-</a>
-&nbsp;&nbsp;&nbsp;
-
-<a href="mailto:adhyatma006@gmail.com">
-<img src="https://skillicons.dev/icons?i=gmail" height="50"/>
-</a>
-&nbsp;&nbsp;&nbsp;
-
-<a href="https://leetcode.com/asc_006">
-<img src="https://cdn.simpleicons.org/leetcode/FFA116" height="45" style="background:#1f2937;border-radius:10px;padding:6px"/>
-</a>
-&nbsp;&nbsp;&nbsp;
-
-<a href="https://codeforces.com/profile/Adhyatma_27">
-<img src="https://cdn.simpleicons.org/codeforces/1F8ACB" height="45" style="background:#1f2937;border-radius:10px;padding:6px"/>
-</a>
 
 </p>
