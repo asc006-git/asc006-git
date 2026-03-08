@@ -25,24 +25,27 @@ timeline
     title Adhyatma Singh Chauhan — Engineering Journey
 
     2023 : Started Computer Science Engineering
-         : Began exploring backend development
+         : Began exploring programming and backend development
 
-    2024 : Built SURAKSHAK
-         : Behaviour-based authentication using ML
+    2024 : Built First project 
+         : A Coding Quiz Website
 
-    2025 : Research Conclave Winner
-         : LLM hallucination mitigation research
+    2025 : Built SURAKSHAK during Suraksha Cyber Hackathon (Canara Bank)
+         : Behaviour-based mobile authentication using ML
+
+    2025 : HackOrbit National Hackathon
+         : Finalist among 400+ teams
 
     2025 : Smart India Hackathon
-         : Led development team
+         : Team Leader — 1st rank in institute round
 
-    2025 : Cyber Security Hackathon
-         : Selected Top 105 teams nationwide
+    2025 : Research Conclave Winner
+         : Presented research on LLM hallucination mitigation
 
     2026 : Building AI-driven authentication systems
-         : Exploring backend architecture
+         : Exploring scalable backend architecture
+         : Journey continuing....
 ```
-
 
 ## GitHub Analytics
 
@@ -67,11 +70,6 @@ Let's connect and collaborate on AI, backend systems, and security projects.
 
 <a href="mailto:adhyatma006@gmail.com">
 <img src="https://skillicons.dev/icons?i=gmail" height="50"/>
-</a>
-&nbsp;&nbsp;&nbsp;
-
-<a href="https://github.com/asc006-git">
-<img src="https://skillicons.dev/icons?i=github" height="50"/>
 </a>
 &nbsp;&nbsp;&nbsp;
 
