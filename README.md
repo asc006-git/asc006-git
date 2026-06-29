@@ -2,13 +2,32 @@
   <img src="banner.svg" width="100%" alt="Adhyatma Singh Chauhan"/>
 </p>
 
-## About Me
-- Computer Science Engineering student focused on **AI-driven and security-focused systems**
-- Interested in **backend architecture, authentication systems, and intelligent automation**
-- Experience building **AI verification platforms and behavioural security models**
-- Active in **hackathons and research competitions**
-- Currently exploring **system design and ML-based security solutions**
-- Open To collaborations and reach me at: **adhyatma006@gmail.com**
+<table>
+<tr>
+
+<td width="58%" valign="top">
+
+<h2>About Me</h2>
+
+<ul>
+<li>Computer Science undergraduate focused on AI & Backend Engineering.</li>
+<li>Building intelligent security and authentication systems.</li>
+<li>Active in Open Source, Hackathons, and Research.</li>
+<li>Turning innovative ideas into scalable software.</li>
+</ul>
+
+</td>
+
+<td width="42%" align="right">
+
+<img src="dev-workspace.svg"
+     width="360"
+     style="transform:perspective(1000px) rotateY(-18deg) rotateX(4deg) rotate(-4deg);" />
+
+</td>
+
+</tr>
+</table>
 
 ## Tech Stack
 
