@@ -10,10 +10,10 @@
 <h2>About Me</h2>
 
 <ul>
-<li>Computer Science undergraduate focused on AI & Backend Engineering.</li>
-<li>Building intelligent security and authentication systems.</li>
-<li>Active in Open Source, Hackathons, and Research.</li>
-<li>Turning innovative ideas into scalable software.</li>
+<li>Computer Science undergraduate focused on **AI, Backend Engineering, and Intelligent Systems**.</li>
+<li>Building **AI-powered security** and authentication solutions that solve real-world problems.</li>
+<li>Active in **Open Source, Hackathons, and Research**, continuously learning through hands-on projects.</li>
+<li>Passionate about creating scalable software that combines **innovation with practical impact**.</li>
 </ul>
 
 </td>
@@ -22,7 +22,7 @@
 
 <img src="dev-workspace.svg"
      width="360"
-     style="transform:perspective(1000px) rotateY(-18deg) rotateX(4deg) rotate(-4deg);" />
+     style="transform: rotate(-6deg);" />
 
 </td>
 
