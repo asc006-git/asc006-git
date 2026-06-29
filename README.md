@@ -1,4 +1,6 @@
-<img width="1810" height="273" alt="github-header-banner" src="https://github.com/user-attachments/assets/8c91bc28-036c-4dc8-a3bf-5dd77ba023d0" />
+<p align="center">
+  <img src="banner.svg" width="100%" alt="Adhyatma Singh Chauhan"/>
+</p>
 
 ## About Me
 - Computer Science Engineering student focused on **AI-driven and security-focused systems**
