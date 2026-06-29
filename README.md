@@ -10,10 +10,10 @@
 <h2>About Me</h2>
 
 <ul>
-<li>Computer Science undergraduate focused on **AI, Backend Engineering, and Intelligent Systems**.</li>
-<li>Building **AI-powered security** and authentication solutions that solve real-world problems.</li>
-<li>Active in **Open Source, Hackathons, and Research**, continuously learning through hands-on projects.</li>
-<li>Passionate about creating scalable software that combines **innovation with practical impact**.</li>
+<li>Building AI-powered software that solves real-world security challenges.</li>
+<li>Passionate about Intelligent Systems, Backend Engineering, and Machine Learning.</li>
+<li>Open Source contributor who enjoys transforming ideas into production-ready products.</li>
+<li>Always exploring better architectures, cleaner code, and scalable solutions.</li>
 </ul>
 
 </td>
