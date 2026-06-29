@@ -38,6 +38,7 @@
 ---
 ## Developer Analytics
 
+<p align="center">
   <img height="165" src="https://github-readme-streak-stats.herokuapp.com/?user=asc006-git&hide_border=true&background=0A0F08&stroke=CAFF3C&ring=8AFF57&fire=39FF14&currStreakLabel=CAFF3C&sideLabels=8AFF57&dates=8AFF57&currStreakNum=CAFF3C&sideNums=CAFF3C" alt="streak" />
 </p>
 
