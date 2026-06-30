@@ -19,7 +19,7 @@ Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and
 
 <td width="42%" align="center" valign="top">
 
-<img src="dev-worksapce.svg"
+<img src="dev-workspace.svg"
      width="360"
      style="transform: rotate(-6deg); margin-bottom: 15px;" />
 
