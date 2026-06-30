@@ -7,22 +7,42 @@
 
 <td width="58%" valign="top">
 
-<h2>About Me</h2>
+### About Me
 
-<ul>
-<li>Building AI-powered software that solves real-world security challenges.</li>
-<li>Passionate about Intelligent Systems, Backend Engineering, and Machine Learning.</li>
-<li>Open Source contributor who enjoys transforming ideas into production-ready products.</li>
-<li>Always exploring better architectures, cleaner code, and scalable solutions.</li>
-</ul>
+I am currently sharpening problem-solving through competitive programming in Java on LeetCode and Codeforces, and building projects with Python and web technologies — mostly AI/ML systems that handle real-time, real-world problems.
+
+My projects span behavioral cybersecurity (AutoShield-Edge), talent intelligence (Aptiv), hallucination detection (HalluciGuard), and voice fraud detection (VoiceShield-AI) — different domains, same approach: take a messy real-world signal and build a system that reasons about it correctly.
+
+Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and explainability — and contributing to open source where I can.
 
 </td>
 
-<td width="42%" align="right">
+<td width="42%" align="center" valign="top">
 
-<img src="dev-workspace.svg"
+<img src="dev-worksapce.svg"
      width="360"
-     style="transform: rotate(-6deg);" />
+     style="transform: rotate(-6deg); margin-bottom: 15px;" />
+
+<br/>
+
+<!-- Relocated Badges with Stats -->
+<a href="https://leetcode.com/u/asc_006/" target="_blank">
+  <img src="https://img.shields.io/badge/LeetCode-CAFF3C?style=for-the-badge&logo=leetcode&logoColor=000000&labelColor=060D08" alt="leetcode" />
+</a>
+<p style="margin-top: 5px; margin-bottom: 15px; font-family: sans-serif; color: #CAFF3C;">
+  <strong>  Rating:</strong> 1765 
+</p>
+
+<a href="https://codeforces.com/profile/Adhyatma_27" target="_blank">
+  <img src="https://img.shields.io/badge/Codeforces-CAFF3C?style=for-the-badge&logo=codeforces&logoColor=000000&labelColor=060D08" alt="codeforces" />
+</a>
+<p style="margin-top: 5px; font-family: sans-serif; color: #CAFF3C;">
+  <strong>Rating:</strong> 817
+</p>
+
+<p style="margin-top: 5px; font-family: sans-serif; color: #CAFF3C;">
+  <strong>DSA Problems solved </strong> 650+
+</p>
 
 </td>
 
@@ -30,6 +50,7 @@
 </table>
 
 ---
+**Daily driver:** Java for DSA and competitive programming · Python for AI/ML and backend systems ·  TypeScript, and JS for specific projects.
 
 <p align="center">
     <img src="engineering-toolkit.svg" width="100%" alt="Engineering Toolkit"/>
@@ -56,14 +77,6 @@
   &nbsp;
   <a href="https://github.com/asc006-git" target="_blank">
     <img src="https://img.shields.io/badge/GitHub-CAFF3C?style=for-the-badge&logo=github&logoColor=000000&labelColor=060D08" alt="github" />
-  </a>
-  &nbsp;
-  <a href="https://leetcode.com/u/asc_006/" target="_blank">
-    <img src="https://img.shields.io/badge/LeetCode-CAFF3C?style=for-the-badge&logo=leetcode&logoColor=000000&labelColor=060D08" alt="leetcode" />
-  </a>
-  &nbsp;
-  <a href="https://codeforces.com/profile/Adhyatma_27" target="_blank">
-    <img src="https://img.shields.io/badge/Codeforces-CAFF3C?style=for-the-badge&logo=codeforces&logoColor=000000&labelColor=060D08" alt="codeforces" />
   </a>
   &nbsp;
   <a href="mailto:adhyatma006@gmail.com">
