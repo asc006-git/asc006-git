@@ -46,12 +46,20 @@ def fetch_github(today):
     return days, tot
 
 
+def _unique_repos(rows, n=3):
+    seen, out = set(), []
+    for r in rows:
+        if r["r"] not in seen:
+            seen.add(r["r"]); out.append(r)
+    return out[:n]
+
+
 def fetch_extra():
     q = """query($u:String!,$m:String!,$o:String!,$a:String!){
     user(login:$u){followers{totalCount}
       repositories(ownerAffiliations:OWNER,isFork:false,privacy:PUBLIC,first:100){totalCount nodes{stargazerCount
         languages(first:6,orderBy:{field:SIZE,direction:DESC}){edges{size node{name}}}}}}
-    merged:search(query:$m,type:ISSUE,first:3){issueCount nodes{... on PullRequest{title mergedAt repository{nameWithOwner}}}}
+    merged:search(query:$m,type:ISSUE,first:12){issueCount nodes{... on PullRequest{title mergedAt repository{nameWithOwner}}}}
     oss:search(query:$o,type:ISSUE,first:1){issueCount}
     opened:search(query:$a,type:ISSUE,first:1){issueCount}}"""
     d = gql(q, {"u": GH_USER,
@@ -66,8 +74,8 @@ def fetch_extra():
             "stars": sum(n["stargazerCount"] for n in repos["nodes"]),
             "langs": sorted(langs.items(), key=lambda kv: -kv[1])[:5],
             "merged": d["merged"]["issueCount"], "oss": d["oss"]["issueCount"], "opened": d["opened"]["issueCount"],
-            "recent": [{"t": n["title"], "r": n["repository"]["nameWithOwner"], "d": n["mergedAt"][:10]}
-                       for n in d["merged"]["nodes"] if n]}
+            "recent": _unique_repos([{"t": n["title"], "r": n["repository"]["nameWithOwner"], "d": n["mergedAt"][:10]}
+                                     for n in d["merged"]["nodes"] if n])}
 
 
 def fetch_cf():
@@ -133,7 +141,7 @@ def render(days, tot, ex, lc, cf, today):
     o = []; a = o.append
     a(f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Developer Analytics">
 <defs>
-<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{G}" stop-opacity="0"/><stop offset=".5" stop-color="{G}" stop-opacity=".12"/><stop offset="1" stop-color="{G}" stop-opacity="0"/></linearGradient>
 <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="{G}" stroke-opacity=".05"/></pattern>
 <clipPath id="clip"><rect width="{W}" height="{H}" rx="10"/></clipPath>
@@ -161,12 +169,12 @@ text{{font-family:"Courier New",Courier,monospace}}
 <rect width="{W}" height="{H}" fill="{BG}"/><rect width="{W}" height="{H}" fill="url(#grid)"/>
 <rect x="1.5" y="1.5" width="{W-3}" height="{H-3}" rx="9" fill="none" stroke="{G}" stroke-opacity=".6" stroke-width="2" class="pan"/>
 <path d="M40 52H300M700 52H960" stroke="{G}" stroke-opacity=".5" fill="none" class="flow"/>
-<text x="{W/2}" y="62" text-anchor="middle" font-size="34" font-weight="bold" letter-spacing="4" fill="{G}" class="title" filter="url(#glow)">DEVELOPER ANALYTICS</text>
+<text x="{W/2}" y="62" text-anchor="middle" font-size="34" font-weight="bold" letter-spacing="4" fill="{G}" filter="url(#glow)">DEVELOPER ANALYTICS</text>
 <text x="{W/2}" y="86" text-anchor="middle" font-size="12" fill="{G2}" fill-opacity=".8">LIVE FEED // GITHUB · OPEN SOURCE · CP<tspan class="cur">_</tspan></text>''')
 
     def T(x, y, s, size=10, fill=G2, anchor="start", bold=False, glow=False):
         a(f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" fill="{fill}" text-anchor="{anchor}"'
-          f'{" font-weight=\"bold\"" if bold else ""}{" filter=\"url(#glow)\"" if glow else ""}>{s}</text>')
+          f'{" font-weight=\"bold\"" if bold else ""}>{s}</text>')
 
     def box(x, y, w, h, title, i):
         a(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{G}" fill-opacity=".03" stroke="{G}" stroke-width="1.5" class="pan" style="animation-delay:{i*.4}s"/>')
@@ -175,13 +183,13 @@ text{{font-family:"Courier New",Courier,monospace}}
 
     # ---- KPI strip
     kpis = [("CONTRIBUTIONS", sum(days.values())), ("COMMITS", tot.get("commits")), ("PRS OPENED", ex.get("opened")),
-            ("PRS MERGED", ex.get("merged")), ("OPEN-SOURCE PRS", ex.get("oss")), ("CODE REVIEWS", tot.get("reviews"))]
+            ("PRS MERGED", ex.get("merged")), ("OPEN-SOURCE PRS", ex.get("oss")), ("ACTIVE DAYS", sum(1 for v in days.values() if v))]
     kw = (total_w - 5 * 10) / 6
     for i, (lab, v) in enumerate(kpis):
         kx = left + i * (kw + 10)
         a(f'<rect x="{kx:.1f}" y="104" width="{kw:.1f}" height="62" rx="8" fill="{G}" fill-opacity=".05" stroke="{G}" stroke-width="1.5" class="kpi" style="animation-delay:{i*.3}s"/>')
         T(kx + kw / 2, 138, fmt(v), 26, G, "middle", True, True)
-        T(kx + kw / 2, 156, lab, 9, G2, "middle")
+        T(kx + kw / 2, 156, lab, 10, G2, "middle")
 
     # ---- row 2
     y2, h2 = 176, 190
@@ -192,14 +200,14 @@ text{{font-family:"Courier New",Courier,monospace}}
     a(f'<circle cx="{cx}" cy="{cy}" r="36" fill="none" stroke="{G2}" stroke-opacity=".25" stroke-width="5"/>')
     a(f'<circle cx="{cx}" cy="{cy}" r="36" fill="none" stroke="{G2}" stroke-width="5" stroke-linecap="round" stroke-dasharray="55 171" class="spin" filter="url(#glow)"/>')
     T(cx, cy + 10, cur, 28, G, "middle", True)
-    T(cx, cy + 56, "CURRENT STREAK", 9, G2, "middle")
+    T(cx, cy + 56, "CURRENT STREAK", 10, G2, "middle")
     T(x1 + 128, y2 + 62, "LONGEST", 10); T(x1 + 128, y2 + 86, longest, 24, G, bold=True, glow=True)
     T(x1 + 128, y2 + 108, "THIS WEEK", 10); T(x1 + 128, y2 + 132, sum(wk), 24, G, bold=True, glow=True)
     mx = max(max(wk), 1); bx = x1 + (250 - 7 * 18 - 6 * 12) / 2
     for k, (d, c) in enumerate(zip(last7, wk)):
         hh = max(3, 20 * c / mx); bxx = bx + k * 30
         a(f'<rect x="{bxx:.1f}" y="{y2+170-hh:.1f}" width="18" height="{hh:.1f}" rx="2" fill="{G}" fill-opacity="{1 if c else .3}" class="grow" style="animation-delay:-{k*.3:.1f}s"/>')
-        T(bxx + 9, y2 + 182, "MTWTFSS"[d.weekday()], 8, G2, "middle")
+        T(bxx + 9, y2 + 182, "MTWTFSS"[d.weekday()], 10, G2, "middle")
 
     # heatmap (26 weeks)
     box(x2, y2, 430, h2, "02 // ACTIVITY", 1)
@@ -217,7 +225,7 @@ text{{font-family:"Courier New",Courier,monospace}}
     stats = [("BEST DAY", max(vals)), ("AVG / DAY", f"{sum(vals)/len(vals):.1f}"), ("ACTIVE DAYS", sum(1 for v in vals if v))]
     for k, (lab, v) in enumerate(stats):
         sx = x2 + 14 + k * 138
-        T(sx, y2 + 172, lab, 9); T(sx + 90, y2 + 172, v, 13, G, bold=True)
+        T(sx, y2 + 172, lab, 10); T(sx + 90, y2 + 172, v, 13, G, bold=True)
 
     # contribution mix donut
     box(x3, y2, 246, h2, "03 // MIX", 2)
@@ -233,11 +241,12 @@ text{{font-family:"Courier New",Courier,monospace}}
             a(f'<circle cx="{dcx}" cy="{dcy}" r="{r}" fill="none" stroke="{G}" stroke-opacity="{[1,.7,.45,.25][k]}" stroke-width="14" stroke-dasharray="{max(seg-2,0.5):.1f} {C:.1f}" stroke-dashoffset="{-start:.1f}"/>')
         start += seg
     a('</g></g>')
-    T(dcx, dcy + 4, msum, 14, G, "middle", True); T(dcx, dcy + 16, "ACTIONS", 7, G2, "middle")
-    for k, (lab, v) in enumerate(mix):
-        ry = y2 + 70 + k * 26
+    T(dcx, dcy + 6, msum, 16, G, "middle", True)
+    shown = [(k, lab, v) for k, (lab, v) in enumerate(mix) if v]
+    for j, (k, lab, v) in enumerate(shown):
+        ry = y2 + 78 + j * 26
         a(f'<rect x="{x3+122}" y="{ry-8}" width="9" height="9" rx="2" fill="{G}" fill-opacity="{[1,.7,.45,.25][k]}"/>')
-        T(x3 + 138, ry, lab, 9); T(x3 + 232, ry + 1, v, 13, G, "end", True)
+        T(x3 + 138, ry, lab, 10); T(x3 + 232, ry + 1, v, 13, G, "end", True)
 
     # ---- row 3
     y3, h3 = 376, 172
@@ -247,12 +256,14 @@ text{{font-family:"Courier New",Courier,monospace}}
     langs = ex.get("langs") or []
     if langs:
         ltot = sum(s for _, s in langs)
+        langs = [(n, s) for n, s in langs if 100 * s / ltot >= 1]
         for k, (n, s) in enumerate(langs):
             ry = y3 + 52 + k * 24; pct = 100 * s / ltot
-            T(y1x + 14, ry, esc(n, 11), 10, G)
+            T(y1x + 14, ry, esc(n, 11), 11, G)
             a(f'<rect x="{y1x+104}" y="{ry-8}" width="140" height="8" rx="2" fill="{G}" fill-opacity=".1"/>')
             a(f'<rect x="{y1x+104}" y="{ry-8}" width="{max(2,140*pct/100):.0f}" height="8" rx="2" fill="{G}" fill-opacity=".85"/>')
-            T(y1x + 286, ry, f"{pct:.0f}%", 9, G2, "end")
+            T(y1x + 286, ry, f"{pct:.0f}%", 10, G2, "end")
+        T(y1x + 14, y3 + 160, "PUBLIC REPOS · BY CODE SIZE", 10, G2)
     else:
         T(y1x + 150, y3 + 90, "NO PUBLIC REPO DATA", 10, G2, "middle")
     # merged PRs
@@ -263,20 +274,20 @@ text{{font-family:"Courier New",Courier,monospace}}
         for k, p in enumerate(rec[:3]):
             ry = y3 + 48 + k * 40
             a(f'<circle cx="{y2x+20}" cy="{ry+2}" r="3" fill="{G}" class="dot" style="animation-delay:{k*.3}s"/>')
-            T(y2x + 32, ry, esc(p["r"], 38), 9, G2)
+            T(y2x + 32, ry, esc(p["r"].split("/")[-1], 34), 10, G2)
             T(y2x + 32, ry + 15, esc(p["t"], 36), 11, G)
             try:
                 dd = dt.date.fromisoformat(p["d"]).strftime("%b %d").upper()
             except Exception:
                 dd = ""
-            T(y2x + 326, ry, dd, 9, G2, "end")
+            T(y2x + 326, ry, dd, 10, G2, "end")
     else:
         T(y2x + 170, y3 + 95, "NO MERGED PRS YET", 10, G2, "middle")
     # competitive
     box(y3x, y3, 286, h3, "06 // COMPETITIVE", 5)
     rx_ = y3x + 272
-    T(y3x + 14, y3 + 58, fmt(lc.get("solved")), 24, G, bold=True, glow=True); T(y3x + 14, y3 + 70, "LEETCODE SOLVED", 8)
-    T(rx_, y3 + 58, fmt(lc.get("rating")), 24, G, "end", True, True); T(rx_, y3 + 70, "LEETCODE RATING", 8, G2, "end")
+    T(y3x + 14, y3 + 58, fmt(lc.get("solved")), 24, G, bold=True, glow=True); T(y3x + 14, y3 + 70, "LEETCODE SOLVED", 10)
+    T(rx_, y3 + 58, fmt(lc.get("rating")), 24, G, "end", True, True); T(rx_, y3 + 70, "LEETCODE RATING", 10, G2, "end")
     e, m, h_ = (lc.get("easy") or 0), (lc.get("medium") or 0), (lc.get("hard") or 0)
     seg_total = max(e + m + h_, 1); bw = 258; sx = y3x + 14
     for op, v in ((.35, e), (.65, m), (1, h_)):
@@ -284,10 +295,10 @@ text{{font-family:"Courier New",Courier,monospace}}
         if sw > 0:
             a(f'<rect x="{sx:.1f}" y="{y3+80}" width="{max(sw-1,1):.1f}" height="8" fill="{G}" fill-opacity="{op}"/>')
         sx += sw
-    T(y3x + 14, y3 + 102, f"EASY {fmt(lc.get('easy'))}  MED {fmt(lc.get('medium'))}  HARD {fmt(lc.get('hard'))}", 9)
+    T(y3x + 14, y3 + 102, f"EASY {fmt(lc.get('easy'))}  MED {fmt(lc.get('medium'))}  HARD {fmt(lc.get('hard'))}", 10)
     a(f'<path d="M{y3x+14} {y3+112}H{rx_}" stroke="{G}" stroke-opacity=".3"/>')
-    T(y3x + 14, y3 + 130, f"CODEFORCES // {esc(str(cf.get('rank','')).upper())}", 9)
-    T(rx_, y3 + 130, f"MAX {fmt(cf.get('max'))}", 9, G2, "end")
+    T(y3x + 14, y3 + 130, f"CODEFORCES // {esc(str(cf.get('rank','')).upper())}", 10)
+    T(rx_, y3 + 130, f"MAX {fmt(cf.get('max'))}", 10, G2, "end")
     T(y3x + 14, y3 + 160, fmt(cf.get("rating")), 24, G, bold=True, glow=True)
     hist = cf.get("hist") or []
     if len(hist) >= 2:
@@ -301,7 +312,7 @@ text{{font-family:"Courier New",Courier,monospace}}
     a(f'<rect x="{left}" y="558" width="{total_w}" height="34" rx="6" fill="{G}" fill-opacity=".04" stroke="{G}" stroke-opacity=".5"/>')
     a(f'<circle cx="{left+18}" cy="575" r="4" fill="{G}" class="dot"/>')
     for fx, s in ((30, "STATUS: SYNCED"), (190, f"LAST SYNC: {today} UTC"),
-                  (380, f"REPOS {fmt(ex.get('repos'))} · STARS {fmt(ex.get('stars'))} · FOLLOWERS {fmt(ex.get('followers'))}"),
+                  (380, " · ".join([f"REPOS {fmt(ex.get('repos'))}"] + [f"{n} {ex[k]}" for n, k in (("STARS", "stars"), ("FOLLOWERS", "followers")) if ex.get(k)])),
                   (700, "AUTO-UPDATE: DAILY 23:00 IST")):
         T(left + fx, 579, s, 11, G2)
     a(f'<rect x="0" y="-80" width="{W}" height="80" fill="url(#scan)"><animateTransform attributeName="transform" type="translate" values="0 0;0 {H+80}" dur="5s" repeatCount="indefinite"/></rect></g></svg>')
@@ -315,8 +326,8 @@ def main():
         random.seed(3)
         days = {str(today - dt.timedelta(days=i)): random.choice([0, 0, 1, 2, 3, 5, 8]) for i in range(450)}
         tot = dict(commits=412, prs=38, issues=9, reviews=14)
-        ex = {"followers": 12, "repos": 21, "stars": 17, "opened": 41, "merged": 33, "oss": 6,
-              "langs": [("Java", 52000), ("Python", 41000), ("TypeScript", 22000), ("JavaScript", 9000), ("HTML", 4000)],
+        ex = {"followers": 12, "repos": 21, "stars": 0, "opened": 41, "merged": 33, "oss": 6,
+              "langs": [("Java", 52000), ("Python", 41000), ("TypeScript", 22000), ("JavaScript", 9000), ("C", 300)],
               "recent": [{"t": "Fix tokenizer edge case <for> unicode & emoji input", "r": "huggingface/transformers", "d": "2026-11-02"},
                          {"t": "Add retry to client", "r": "someorg/some-long-repository-name", "d": "2026-10-21"},
                          {"t": "Docs: clarify install steps", "r": "asc006-git/halluciguard", "d": "2026-10-09"}]}
