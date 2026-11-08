@@ -19,30 +19,17 @@ Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and
 
 <td width="42%" align="center" valign="top">
 
-<img src="dev-workspace.svg"
-     width="360"
-     style="transform: rotate(-6deg); margin-bottom: 15px;" />
+<img src="dev-workspace.svg" width="360" alt="Dev workspace"/>
 
-<br/>
+<br/><br/>
 
-<!-- Relocated Badges with Stats -->
-<a href="https://leetcode.com/u/asc_006/" target="_blank">
-  <img src="https://img.shields.io/badge/LeetCode-CAFF3C?style=for-the-badge&logo=leetcode&logoColor=000000&labelColor=060D08" alt="leetcode" />
-</a>
-<p style="margin-top: 5px; margin-bottom: 15px; font-family: sans-serif; color: #CAFF3C;">
-  <strong>  Rating:</strong> 1816 
-</p>
+<a href="https://leetcode.com/u/asc_006/" target="_blank"><img src="https://img.shields.io/badge/LeetCode-CAFF3C?style=for-the-badge&logo=leetcode&logoColor=CAFF3C&labelColor=060D08" alt="leetcode" /></a>
+&nbsp;
+<a href="https://codeforces.com/profile/Adhyatma_27" target="_blank"><img src="https://img.shields.io/badge/Codeforces-CAFF3C?style=for-the-badge&logo=codeforces&logoColor=CAFF3C&labelColor=060D08" alt="codeforces" /></a>
 
-<a href="https://codeforces.com/profile/Adhyatma_27" target="_blank">
-  <img src="https://img.shields.io/badge/Codeforces-CAFF3C?style=for-the-badge&logo=codeforces&logoColor=000000&labelColor=060D08" alt="codeforces" />
-</a>
-<p style="margin-top: 5px; font-family: sans-serif; color: #CAFF3C;">
-  <strong>Rating:</strong> 1201
-</p>
+<br/><br/>
 
-<p style="margin-top: 5px; font-family: sans-serif; color: #CAFF3C;">
-  <strong>DSA Problems solved </strong> 770+
-</p>
+<sub>Live ratings and solved counts are in <b>Developer Analytics</b> below.</sub>
 
 </td>
 
@@ -50,10 +37,10 @@ Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and
 </table>
 
 ---
-**Daily driver:** Java for DSA and competitive programming · Python for AI/ML and backend systems ·  TypeScript, and JS for specific projects.
+**Daily driver:** Java for DSA and competitive programming · Python for AI/ML and backend systems · TypeScript and JS for specific projects.
 
 <p align="center">
-    <img src="engineering-toolkit.svg" width="100%" alt="Engineering Toolkit"/>
+  <img src="engineering-toolkit.svg" width="100%" alt="Engineering Toolkit"/>
 </p>
 
 ---
@@ -67,17 +54,11 @@ Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and
 ## Let's Connect
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/adhyatma006" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-CAFF3C?style=for-the-badge&logo=linkedin&logoColor=000000&labelColor=060D08" alt="linkedin" />
-  </a>
+  <a href="https://www.linkedin.com/in/adhyatma006" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-CAFF3C?style=for-the-badge&logo=linkedin&logoColor=CAFF3C&labelColor=060D08" alt="linkedin" /></a>
   &nbsp;
-  <a href="https://github.com/asc006-git" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-CAFF3C?style=for-the-badge&logo=github&logoColor=000000&labelColor=060D08" alt="github" />
-  </a>
+  <a href="https://github.com/asc006-git" target="_blank"><img src="https://img.shields.io/badge/GitHub-CAFF3C?style=for-the-badge&logo=github&logoColor=CAFF3C&labelColor=060D08" alt="github" /></a>
   &nbsp;
-  <a href="mailto:adhyatma006@gmail.com">
-    <img src="https://img.shields.io/badge/Email-CAFF3C?style=for-the-badge&logo=gmail&logoColor=000000&labelColor=060D08" alt="email" />
-  </a>
+  <a href="mailto:adhyatma006@gmail.com"><img src="https://img.shields.io/badge/Email-CAFF3C?style=for-the-badge&logo=gmail&logoColor=CAFF3C&labelColor=060D08" alt="email" /></a>
 </p>
 
 ---
