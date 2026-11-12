@@ -1,11 +1,11 @@
-"""Builds analytics.svg ("mission control" card): GitHub + LeetCode + Codeforces.
+"""Builds analytics.svg ("mission control" card): GitHub + LeetCode.
 Run daily by the GitHub Action. Standard library only.
 Local test without network:  python scripts/stats.py --mock
 """
 import os, sys, json, random, html, datetime as dt, urllib.request
 
 GH_USER = os.environ.get("GH_USER", "asc006-git")   # the workflow passes the repo owner
-LC_USER, CF_USER = "asc_006", "Adhyatma_27"
+LC_USER = "asc_006"
 START_YEAR = 2025
 OUT, CACHE = "analytics.svg", ".stats-cache.json"
 G, G2, BG = "#CAFF3C", "#8AFF57", "#060D08"
@@ -78,13 +78,6 @@ def fetch_extra():
                                      for n in d["merged"]["nodes"] if n])}
 
 
-def fetch_cf():
-    r = http(f"https://codeforces.com/api/user.info?handles={CF_USER}")["result"][0]
-    hist = http(f"https://codeforces.com/api/user.rating?handle={CF_USER}")["result"]
-    return {"rating": r.get("rating"), "max": r.get("maxRating"), "rank": r.get("rank", "unrated"),
-            "hist": [h["newRating"] for h in hist][-14:]}
-
-
 def fetch_lc():
     q = """query($u:String!){matchedUser(username:$u){submitStatsGlobal{acSubmissionNum{difficulty count}}}
     userContestRanking(username:$u){rating}}"""
@@ -132,9 +125,9 @@ def esc(s, n=None):
 
 
 # ---------------------------------------------------------------- render
-def render(days, tot, ex, lc, cf, today):
+def render(days, tot, ex, lc, today):
     W, H, left, total_w = 1000, 610, 27, 946
-    tot = tot or {}; ex = ex or {}; lc = lc or {}; cf = cf or {}
+    tot = tot or {}; ex = ex or {}; lc = lc or {}
     cur, longest = streaks(days, today)
     last7 = [today - dt.timedelta(days=i) for i in range(6, -1, -1)]
     wk = [days.get(str(d), 0) for d in last7]
@@ -170,7 +163,7 @@ text{{font-family:"Courier New",Courier,monospace}}
 <rect x="1.5" y="1.5" width="{W-3}" height="{H-3}" rx="9" fill="none" stroke="{G}" stroke-opacity=".6" stroke-width="2" class="pan"/>
 <path d="M40 52H300M700 52H960" stroke="{G}" stroke-opacity=".5" fill="none" class="flow"/>
 <text x="{W/2}" y="62" text-anchor="middle" font-size="34" font-weight="bold" letter-spacing="4" fill="{G}" filter="url(#glow)">DEVELOPER ANALYTICS</text>
-<text x="{W/2}" y="86" text-anchor="middle" font-size="12" fill="{G2}" fill-opacity=".8">LIVE FEED // GITHUB · OPEN SOURCE · CP<tspan class="cur">_</tspan></text>''')
+<text x="{W/2}" y="86" text-anchor="middle" font-size="12" fill="{G2}" fill-opacity=".8">LIVE FEED // GITHUB · OPEN SOURCE · LEETCODE<tspan class="cur">_</tspan></text>''')
 
     def T(x, y, s, size=10, fill=G2, anchor="start", bold=False, glow=False):
         a(f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" fill="{fill}" text-anchor="{anchor}"'
@@ -283,30 +276,22 @@ text{{font-family:"Courier New",Courier,monospace}}
             T(y2x + 326, ry, dd, 10, G2, "end")
     else:
         T(y2x + 170, y3 + 95, "NO MERGED PRS YET", 10, G2, "middle")
-    # competitive
-    box(y3x, y3, 286, h3, "06 // COMPETITIVE", 5)
+    # leetcode
+    box(y3x, y3, 286, h3, "06 // LEETCODE", 5)
     rx_ = y3x + 272
-    T(y3x + 14, y3 + 58, fmt(lc.get("solved")), 24, G, bold=True, glow=True); T(y3x + 14, y3 + 70, "LEETCODE SOLVED", 10)
-    T(rx_, y3 + 58, fmt(lc.get("rating")), 24, G, "end", True, True); T(rx_, y3 + 70, "LEETCODE RATING", 10, G2, "end")
-    e, m, h_ = (lc.get("easy") or 0), (lc.get("medium") or 0), (lc.get("hard") or 0)
-    seg_total = max(e + m + h_, 1); bw = 258; sx = y3x + 14
-    for op, v in ((.35, e), (.65, m), (1, h_)):
-        sw = bw * v / seg_total
-        if sw > 0:
-            a(f'<rect x="{sx:.1f}" y="{y3+80}" width="{max(sw-1,1):.1f}" height="8" fill="{G}" fill-opacity="{op}"/>')
-        sx += sw
-    T(y3x + 14, y3 + 102, f"EASY {fmt(lc.get('easy'))}  MED {fmt(lc.get('medium'))}  HARD {fmt(lc.get('hard'))}", 10)
-    a(f'<path d="M{y3x+14} {y3+112}H{rx_}" stroke="{G}" stroke-opacity=".3"/>')
-    T(y3x + 14, y3 + 130, f"CODEFORCES // {esc(str(cf.get('rank','')).upper())}", 10)
-    T(rx_, y3 + 130, f"MAX {fmt(cf.get('max'))}", 10, G2, "end")
-    T(y3x + 14, y3 + 160, fmt(cf.get("rating")), 24, G, bold=True, glow=True)
-    hist = cf.get("hist") or []
-    if len(hist) >= 2:
-        lo, hi = min(hist), max(hist); span = max(hi - lo, 1)
-        px = [y3x + 110 + i * (162 / (len(hist) - 1)) for i in range(len(hist))]
-        py = [y3 + 164 - 24 * (v - lo) / span for v in hist]
-        a(f'<polyline points="{" ".join(f"{p:.1f},{q:.1f}" for p, q in zip(px, py))}" fill="none" stroke="{G}" stroke-width="2" stroke-linejoin="round" filter="url(#glow)"/>')
-        a(f'<circle cx="{px[-1]:.1f}" cy="{py[-1]:.1f}" r="3" fill="{G}" class="dot"/>')
+    T(y3x + 14, y3 + 58, fmt(lc.get("solved")), 28, G, bold=True)
+    T(y3x + 14, y3 + 72, "SOLVED", 10)
+    T(rx_, y3 + 58, fmt(lc.get("rating")), 28, G, "end", True)
+    T(rx_, y3 + 72, "CONTEST RATING", 10, G2, "end")
+    cnt = [("EASY", lc.get("easy"), .45), ("MEDIUM", lc.get("medium"), .75), ("HARD", lc.get("hard"), 1)]
+    mxc = max([c for _, c, _ in cnt if c] or [1])
+    for k, (lab, c, op) in enumerate(cnt):
+        ry = y3 + 102 + k * 24
+        w = 0 if c is None else max(2, 130 * c / mxc)
+        T(y3x + 14, ry, lab, 10)
+        a(f'<rect x="{y3x+78}" y="{ry-8}" width="130" height="8" rx="2" fill="{G}" fill-opacity=".1"/>')
+        a(f'<rect x="{y3x+78}" y="{ry-8}" width="{w:.0f}" height="8" rx="2" fill="{G}" fill-opacity="{op}"/>')
+        T(rx_, ry, fmt(c), 11, G, "end", True)
 
     # ---- footer
     a(f'<rect x="{left}" y="558" width="{total_w}" height="34" rx="6" fill="{G}" fill-opacity=".04" stroke="{G}" stroke-opacity=".5"/>')
@@ -332,13 +317,12 @@ def main():
                          {"t": "Add retry to client", "r": "someorg/some-long-repository-name", "d": "2026-10-21"},
                          {"t": "Docs: clarify install steps", "r": "asc006-git/halluciguard", "d": "2026-10-09"}]}
         lc = {"solved": 770, "easy": 300, "medium": 400, "hard": 70, "rating": 1816}
-        cf = {"rating": 1201, "max": 1250, "rank": "newbie", "hist": [800, 900, 850, 1000, 1100, 1050, 1201]}
     else:
         cache = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
         days, tot = fetch_github(today)                 # if this fails the job fails; the old SVG stays
-        ex, lc, cf = soft("ex", fetch_extra, cache), soft("lc", fetch_lc, cache), soft("cf", fetch_cf, cache)
+        ex, lc = soft("ex", fetch_extra, cache), soft("lc", fetch_lc, cache)
         json.dump(cache, open(CACHE, "w"))
-    open(OUT, "w").write(render(days, tot, ex, lc, cf, today))
+    open(OUT, "w").write(render(days, tot, ex, lc, today))
     print("wrote", OUT)
 
 
