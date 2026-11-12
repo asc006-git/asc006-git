@@ -9,7 +9,7 @@
 
 ### About Me
 
-I am currently sharpening problem-solving through competitive programming in Java on LeetCode and Codeforces, and building projects with Python and web technologies — mostly AI/ML systems that handle real-time, real-world problems.
+I am currently sharpening problem-solving through competitive programming in Java on LeetCode, and building projects with Python and web technologies — mostly AI/ML systems that handle real-time, real-world problems.
 
 My projects span behavioral cybersecurity (AutoShield-Edge), talent intelligence (Aptiv), hallucination detection (HalluciGuard), and voice fraud detection (VoiceShield-AI) — different domains, same approach: take a messy real-world signal and build a system that reasons about it correctly.
 
@@ -24,12 +24,10 @@ Right now I'm going deeper into AI/ML — model evaluation, agentic systems, and
 <br/><br/>
 
 <a href="https://leetcode.com/u/asc_006/" target="_blank"><img src="https://img.shields.io/badge/LeetCode-CAFF3C?style=for-the-badge&logo=leetcode&logoColor=CAFF3C&labelColor=060D08" alt="leetcode" /></a>
-&nbsp;
-<a href="https://codeforces.com/profile/Adhyatma_27" target="_blank"><img src="https://img.shields.io/badge/Codeforces-CAFF3C?style=for-the-badge&logo=codeforces&logoColor=CAFF3C&labelColor=060D08" alt="codeforces" /></a>
 
 <br/><br/>
 
-<sub>Live ratings and solved counts are in <b>Developer Analytics</b> below.</sub>
+<sub>Live LeetCode stats are in <b>Developer Analytics</b> below.</sub>
 
 </td>
 
