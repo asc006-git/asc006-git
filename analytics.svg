@@ -304,7 +304,7 @@ text{font-family:"Courier New",Courier,monospace}
 <rect x="687" y="376" width="286" height="172" rx="8" fill="#CAFF3C" fill-opacity=".03" stroke="#CAFF3C" stroke-width="1.5" class="pan" style="animation-delay:2.0s"/>
 <text x="701.0" y="400.0" font-size="12" fill="#CAFF3C" text-anchor="start">06 // LEETCODE</text>
 <circle cx="957" cy="396" r="3" fill="#8AFF57" class="dot" style="animation-delay:1.0s"/>
-<text x="701.0" y="434.0" font-size="28" fill="#CAFF3C" text-anchor="start" font-weight="bold">787</text>
+<text x="701.0" y="434.0" font-size="28" fill="#CAFF3C" text-anchor="start" font-weight="bold">788</text>
 <text x="701.0" y="448.0" font-size="10" fill="#8AFF57" text-anchor="start">SOLVED</text>
 <text x="959.0" y="434.0" font-size="28" fill="#CAFF3C" text-anchor="end" font-weight="bold">1843</text>
 <text x="959.0" y="448.0" font-size="10" fill="#8AFF57" text-anchor="end">CONTEST RATING</text>
@@ -319,7 +319,7 @@ text{font-family:"Courier New",Courier,monospace}
 <text x="701.0" y="526.0" font-size="10" fill="#8AFF57" text-anchor="start">HARD</text>
 <rect x="765" y="518" width="130" height="8" rx="2" fill="#CAFF3C" fill-opacity=".1"/>
 <rect x="765" y="518" width="29" height="8" rx="2" fill="#CAFF3C" fill-opacity="1"/>
-<text x="959.0" y="526.0" font-size="11" fill="#CAFF3C" text-anchor="end" font-weight="bold">96</text>
+<text x="959.0" y="526.0" font-size="11" fill="#CAFF3C" text-anchor="end" font-weight="bold">97</text>
 <rect x="27" y="558" width="946" height="34" rx="6" fill="#CAFF3C" fill-opacity=".04" stroke="#CAFF3C" stroke-opacity=".5"/>
 <circle cx="45" cy="575" r="4" fill="#CAFF3C" class="dot"/>
 <text x="57.0" y="579.0" font-size="11" fill="#8AFF57" text-anchor="start">STATUS: SYNCED</text>
